@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abhay | Multidisciplinary Designer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Manrope', 'sans-serif'],
+              display: ['Space Grotesk', 'sans-serif'],
+            },
+            colors: {
+              brand: {
+                dark: '#000000', // Amoled Black
+                gray: '#121212', // Dark Gray
+                accent: '#FFD600', // Electric Yellow
+              }
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'float-delayed': 'float 6s ease-in-out 3s infinite',
+              'spin-slow': 'spin 12s linear infinite',
+              'autoRun': 'autoRun 30s linear infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              autoRun: {
+                'from': { transform: 'rotateX(10deg) rotateY(0deg)' },
+                'to': { transform: 'rotateX(10deg) rotateY(360deg)' }
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Custom scrollbar for webkit */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #000000;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #333;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #FFD600;
+      }
+      .glass-card {
+        background: rgba(18, 18, 18, 0.8);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .yellow-glow {
+        box-shadow: 0 0 40px -10px rgba(255, 214, 0, 0.3);
+      }
+      /* 3D Slider Utilities */
+      .slider-container {
+        transform-style: preserve-3d;
+      }
+      .slider-item {
+        position: absolute;
+        inset: 0 0 0 0;
+        transform: 
+          rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+          translateZ(var(--translateZ));
+      }
+
+      /* Infinite Horizontal Slider Styles */
+      .slider {
+          --duration: 60s; /* Default slower speed */
+          width: 100%;
+          height: var(--height);
+          overflow: hidden;
+          mask-image: linear-gradient(
+              to right,
+              transparent,
+              #000 10% 90%,
+              transparent
+          );
+          -webkit-mask-image: linear-gradient(
+              to right,
+              transparent,
+              #000 10% 90%,
+              transparent
+          );
+      }
+      .slider .list {
+          display: flex;
+          width: 100%;
+          min-width: calc(var(--width) * var(--quantity));
+          position: relative;
+      }
+      .slider .list .item {
+          width: var(--width);
+          height: var(--height);
+          position: absolute;
+          left: 100%;
+          animation: sliderAutoRun var(--duration) linear infinite;
+          transition: filter 0.5s, opacity 0.5s;
+          /* Critical delay calculation based on duration */
+          animation-delay: calc( (var(--duration) / var(--quantity)) * (var(--position) - 1) - var(--duration)) !important;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+      
+      @keyframes sliderAutoRun {
+          from { left: 100%; }
+          to { left: calc(var(--width) * -1); }
+      }
+      
+      @keyframes sliderReversePlay {
+          from { left: calc(var(--width) * -1); }
+          to { left: 100%; }
+      }
+      
+      .slider:hover .item {
+          animation-play-state: paused !important;
+          filter: grayscale(1) opacity(0.5);
+      }
+      .slider .item:hover {
+          filter: grayscale(0) opacity(1);
+          z-index: 10;
+      }
+      
+      .slider[data-reverse="true"] .item {
+          animation: sliderReversePlay var(--duration) linear infinite;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "react": "https://aistudiocdn.com/react@^19.2.1"
+  }
+}
+</script>
+</head>
+  <body class="bg-brand-dark text-white antialiased overflow-x-hidden">
+    <div id="root"></div>
+  </body>
+</html>
